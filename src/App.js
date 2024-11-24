@@ -1,28 +1,41 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import CardList from "./pages/CardList";
 import Register from "./pages/Register";
 import CardDetails from "./pages/CardDetails";
 
-function App() {
+const App = () => {
   return (
     <Router>
       <div>
-        <nav style={{ padding: "10px", backgroundColor: "#4CAF50" }}>
-          <Link to="/" style={{ margin: "10px", color: "white", textDecoration: "none" }}>Cartes</Link>
-          <Link to="/register" style={{ margin: "10px", color: "white", textDecoration: "none" }}>S'inscrire</Link>
-          <Link to="/dashboard" style={{ margin: "10px", color: "white", textDecoration: "none" }}>Membres</Link>
+        <nav className="bg-primary text-white p-4 fixed w-full z-10">
+          <div className="container mx-auto flex justify-between items-center">
+            <h1 className="text-lg font-bold">Loyalty App</h1>
+            <div className="flex gap-4">
+              <NavLink to="/" className={({ isActive }) => isActive ? "font-semibold underline" : ""}>
+                Cartes
+              </NavLink>
+              <NavLink to="/register" className={({ isActive }) => isActive ? "font-semibold underline" : ""}>
+                S'inscrire
+              </NavLink>
+              <NavLink to="/dashboard" className={({ isActive }) => isActive ? "font-semibold underline" : ""}>
+                Membres
+              </NavLink>
+            </div>
+          </div>
         </nav>
-        <Routes>
-          <Route path="/" element={<CardList />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/cards/:id" element={<CardDetails />} />
-        </Routes>
+        <div className="pt-16">
+          <Routes>
+            <Route path="/" element={<CardList />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/cards/:id" element={<CardDetails />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
-}
+};
 
 export default App;

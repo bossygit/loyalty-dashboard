@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const CardDetails = () => {
@@ -16,51 +16,43 @@ const CardDetails = () => {
     { image: "https://via.placeholder.com/80", name: "Dîner pour deux", points: 15000 },
   ];
 
+  const [activeTab, setActiveTab] = useState("rewards");
   const card = cards[id];
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>{card.name}</h1>
-      <p>{card.description}</p>
-      <div style={{ marginTop: "20px" }}>
-        <div style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px" }}>
-          <h3>Détails de la Carte</h3>
-          <p>{card.description}</p>
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <h2>Onglets</h2>
-          <div>
-            <button style={{ padding: "10px", marginRight: "10px", backgroundColor: "#4CAF50", color: "white", border: "none" }}>
-              Récompenses
-            </button>
-            <button style={{ padding: "10px", backgroundColor: "#ccc", color: "black", border: "none" }}>
-              Historique
-            </button>
-          </div>
-          <div style={{ marginTop: "10px" }}>
-            <h3>Récompenses</h3>
-            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-              {rewards.map((reward, index) => (
-                <div
-                  key={index}
-                  style={{
-                    border: "1px solid #ccc",
-                    borderRadius: "5px",
-                    padding: "10px",
-                    textAlign: "center",
-                    width: "200px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  <img src={reward.image} alt={reward.name} style={{ width: "80px", height: "80px" }} />
-                  <h4>{reward.name}</h4>
-                  <p>{reward.points} points</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+    <div className="container mx-auto p-6">
+      <h1 className="text-3xl font-bold text-primary mb-4">{card.name}</h1>
+      <p className="text-gray-700 mb-6">{card.description}</p>
+
+      <div className="flex gap-4 border-b-2 border-gray-200 mb-4">
+        <button
+          className={`px-4 py-2 ${activeTab === "rewards" ? "border-b-2 border-primary text-primary font-semibold" : ""}`}
+          onClick={() => setActiveTab("rewards")}
+        >
+          Récompenses
+        </button>
+        <button
+          className={`px-4 py-2 ${activeTab === "history" ? "border-b-2 border-primary text-primary font-semibold" : ""}`}
+          onClick={() => setActiveTab("history")}
+        >
+          Historique
+        </button>
       </div>
+
+      {activeTab === "rewards" && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {rewards.map((reward, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-md rounded-lg p-4 text-center border-2 border-gray-200"
+            >
+              <img src={reward.image} alt={reward.name} className="mx-auto mb-4" />
+              <h4 className="text-lg font-semibold text-primary">{reward.name}</h4>
+              <p className="text-gray-600">{reward.points} points</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

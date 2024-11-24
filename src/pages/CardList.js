@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const CardList = () => {
   const cards = [
@@ -9,29 +10,21 @@ const CardList = () => {
   ];
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Nos Cartes de Fidélité</h1>
-      <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
+    <div className="container mx-auto p-6">
+      <h1 className="text-3xl font-bold text-center mb-6 text-primary">Nos Cartes de Fidélité</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards.map((card) => (
-          <div
+          <motion.div
             key={card.id}
-            style={{
-              width: "250px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              padding: "10px",
-              textAlign: "center",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
+            whileHover={{ scale: 1.05 }}
+            className="bg-white shadow-lg rounded-lg p-6 text-center border-2 border-primary"
           >
-            <h3>{card.name}</h3>
-            <p>{card.description}</p>
-            <Link to={`/cards/${card.id}`} style={{ textDecoration: "none", color: "white" }}>
-              <button style={{ padding: "10px 20px", backgroundColor: "#4CAF50", border: "none", borderRadius: "5px", color: "white" }}>
-                Voir les détails
-              </button>
+            <h3 className="text-xl font-semibold text-primary">{card.name}</h3>
+            <p className="text-gray-600 mt-2">{card.description}</p>
+            <Link to={`/cards/${card.id}`} className="inline-block mt-4 bg-primary text-white px-4 py-2 rounded-md">
+              Voir les détails
             </Link>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
